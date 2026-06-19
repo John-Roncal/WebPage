@@ -1,0 +1,97 @@
+export const plans: {
+  id: number;
+  title: string;
+  desc:string;
+  subtitle: string;
+  description: string;
+  price: string;
+  features: string[];
+}[] = [
+  {
+    id: 1,
+    title: 'Emprende',
+    desc: '',
+    subtitle: '300 comprobantes',
+    description: 'Para empresas en el régimen tributario NRUS',
+    price: '30',
+    features: [
+      'Emite 300 comprobantes Boletas/Facturas',
+      'Notas de Ventas y Cotizaciones ilimitadas',
+      'Anulaciones ilimitadas',
+      'Notas de Crédito ilimitadas',
+      'Maneja hasta 5 usuarios en diferentes dispositivos',
+      'Gestiona hasta 5 Puntos de Venta',
+      'Reporte de ventas mensuales por correo',
+      'Validación OSE',
+      'Logo Personalizado',
+      'Solo Incluye App móvil',
+      'Soporte 24/7',
+    ],
+  },
+  {
+    id: 2,
+    title: 'Crece+',
+    desc: '',
+    subtitle: '1000 comprobantes',
+    description: 'Para empresas en el régimen tributario NRUS',
+    price: '60',
+    features: [
+      'Emite 1000 comprobantes Boletas/Facturas',
+      'Notas de Ventas y Cotizaciones ilimitadas',
+      'Anulaciones ilimitadas',
+      'Notas de Crédito ilimitadas',
+      'Incluye Guia de Remision Electronica Remitente',
+      'Maneja hasta 10 usuarios en diferentes dispositivos',
+      'Gestiona hasta 10 Puntos de Venta en varios dispositivo',
+      'Reporte de ventas mensuales por correo',
+      'Validación OSE',
+      'Logo Personalizado',
+      'Incluye App móvil y Web',
+      'Controla tu inventario (Stock)',
+      'Reporte de ventas General',
+      'Reporte de ventas Detallado',       
+    ],
+  },
+  {
+    id: 3,
+    title: 'MiFamilia',
+    desc: '',
+    subtitle: '3000 comprobantes',
+    description: 'Para empresas en el régimen tributario NRUS',
+    price: '120',
+    features: [
+      'Emite 3000 comprobantes Boletas/Facturas',
+      'Notas de Ventas y Cotizaciones ilimitadas',
+      'Anulaciones ilimitadas',
+      'Notas de Crédito ilimitadas',
+      'Incluye Guia de Remision Electronica Remitente y Transportista ilimitadas',
+      'Maneja usuarios ilimitados',
+      'Gestiona puntos de Venta ilimitados',
+      'Reporte de ventas mensuales por correo',
+      'Validación OSE',
+      'Logo Personalizado',
+      'Incluye App móvil y Web',
+      'Controla tu inventario (Stock)',
+      'Reporte de ventas General',
+      'Reporte de ventas Detallado',  
+      'Soporte 24/7',    
+    ],
+  },
+  // {
+  //   id: 4,
+  //   title: 'Se libre',
+  //   desc: 'Exclusivo para contribuyentes acogidos al Nuevo RUS (NRUS)',
+  //   subtitle: '30 comprobantes',
+  //   description: 'Para empresas en el régimen tributario NRUS',
+  //   price: '10',
+  //   features: [
+  //     'Emite hasta 30 boletas de venta',
+  //     '30 Cotizaciones / Notas de venta',
+  //     '30 Anulaciones / bajas de boletas',
+  //     'Maneja solo 1 usuario',
+  //     'Gestiona 1 Puntos de Venta',
+  //     'Validación OSE',
+  //     'Incluye App móvil',      
+  //   ],
+  // },
+];

@@ -1,0 +1,15 @@
+/* === FULL WIDTH REAL AUNQUE EL PADRE TENGA MAX-WIDTH === */
+:host {
+  display: block;
+}
+
+/* Full-bleed footer */
+.kallpa-footer {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+/* Seguridad para evitar scroll horizontal */
+.kallpa-footer {
+  overflow-x: hidden;
+}

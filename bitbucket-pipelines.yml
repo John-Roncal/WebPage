@@ -1,0 +1,69 @@
+image: node:18
+
+options:
+  size: 2x
+  max-time: 30
+
+clone:
+  depth: 50
+
+definitions:
+  caches:
+    npm: ~/.npm
+
+  steps:
+    - step: &build
+        name: Build Angular (prod)
+        caches:
+          - node
+          - npm
+        script:
+          - node -v && npm -v
+          - export NG_CLI_ANALYTICS=false
+          - export NODE_OPTIONS="--max_old_space_size=4096"
+          - npm ci --no-audit --no-fund
+          - npm run build -- --configuration=production --base-href ./
+          - |
+            if [ -d "dist/kallpa-web-no-ssr/browser" ]; then
+              cp -r dist/kallpa-web-no-ssr/browser/* dist/kallpa-web-no-ssr/
+              echo "✅ Contenido de browser copiado al nivel superior"
+            else
+              echo "⚠️ No existe la carpeta browser, revisa tu build"
+            fi
+          - |
+            if [ -d "dist/kallpa-web-no-ssr" ]; then
+              echo "✅ Build listo en dist/kallpa-web-no-ssr";
+            else
+              echo "❌ ERROR: No se generó dist/kallpa-web-no-ssr";
+              ls -la dist || true
+              exit 1
+            fi
+        artifacts:
+          - dist/kallpa-web-no-ssr/**
+
+    - step: &deploy_prod_ftp
+        name: Deploy PROD (FTP) a kallpafactura.pe
+        deployment: production
+        script:
+          - pipe: atlassian/ftp-deploy:0.3.3
+            variables:
+              USER: $SFTP_USERNAME
+              PASSWORD: $SFTP_PASSWORD
+              SERVER: $SFTP_SERVER
+              REMOTE_PATH: /
+              LOCAL_PATH: dist/kallpa-web-no-ssr
+              DELETE_FLAG: "true"
+              DEBUG: "true"
+              EXTRA_ARGS: "--delete --parallel=4 --verbose \
+                --exclude-glob=uploads/* \
+                --exclude-glob=.well-known/* \
+                --exclude-glob=storage/* \
+                --exclude-glob=privacy/* \
+                --exclude-glob=terms/* \
+                --exclude-glob=.htaccess"
+
+pipelines:
+  branches:
+    master:
+      - step: *build
+      - step: *deploy_prod_ftp

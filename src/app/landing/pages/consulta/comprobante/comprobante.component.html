@@ -1,0 +1,185 @@
+<div class="tw-min-h-screen tw-bg-white tw--mt-[60px] tw-mb-48">
+
+    <!-- Hero Section -->
+    <div class="tw-container tw-mx-auto tw-px-4 tw-pt-12 tw-pb-5">
+        <div class="tw-text-center tw-mb-12">
+            <div
+                class="tw-inline-flex tw-items-center tw-justify-center tw-w-16 tw-h-16 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mb-6 tw-shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="tw-w-8 tw-h-8 tw-text-white" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 2h7l5 5v13a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" />
+                </svg>
+            </div>
+
+            <h1 class="tw-text-3xl sm:tw-text-4xl lg:tw-text-5xl tw-font-bold tw-text-gray-800 tw-mb-4">
+                Consulta tus
+                <span class="tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                    Comprobantes
+                </span>
+            </h1>
+
+            <p class="tw-text-lg sm:tw-text-xl tw-text-gray-600 tw-max-w-3xl tw-mx-auto tw-leading-relaxed tw-px-4">
+                Accede a tus comprobantes electrónicos de manera rápida y segura
+            </p>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="tw-container tw-mx-auto tw-px-4 tw-pb-16">
+        <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-6 lg:tw-gap-8">
+
+            <!-- FORMULARIO -->
+            <div class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-p-6 sm:tw-p-8">
+
+                <form (ngSubmit)="submit($event)" [formGroup]="form" class="tw-space-y-6">
+
+                    <!-- RUC -->
+                    <div>
+                        <input type="text" pInputText formControlName="ruc"
+                            placeholder="Ingresa el RUC del negocio asociado a Kallpa"
+                            class="tw-w-full tw-p-3 tw-rounded-xl tw-border tw-border-gray-300 focus:tw-border-red-500 focus:tw-ring-2 focus:tw-ring-red-200 tw-text-base" />
+
+                        <div *ngIf="form.get('ruc')?.invalid && form.get('ruc')?.touched"
+                            class="tw-text-red-500 tw-text-sm tw-mt-1">
+                            RUC es obligatorio y debe tener un formato válido.
+                        </div>
+                    </div>
+
+                    <!-- Tipo -->
+                    <div>
+                        <p-dropdown [options]="tipos" optionValue="value" optionLabel="label" formControlName="tipo"
+                            placeholder="Tipo de comprobante" class="tw-w-full">
+                        </p-dropdown>
+
+                        <div *ngIf="form.get('tipo')?.invalid && form.get('tipo')?.touched"
+                            class="tw-text-red-500 tw-text-sm tw-mt-1">
+                            Seleccione un tipo de comprobante.
+                        </div>
+                    </div>
+
+                    <!-- Serie y correlativo -->
+                    <div class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 tw-gap-4">
+                        <div>
+                            <input type="text" pInputText formControlName="serie" placeholder="Serie"
+                                class="tw-w-full tw-p-3 tw-rounded-xl tw-border tw-border-gray-300 focus:tw-border-red-500 focus:tw-ring-2 focus:tw-ring-red-200" />
+
+                            <div *ngIf="form.get('serie')?.invalid && form.get('serie')?.touched"
+                                class="tw-text-red-500 tw-text-sm tw-mt-1">
+                                La serie es obligatoria.
+                            </div>
+                        </div>
+
+                        <div>
+                            <input type="text" pInputText formControlName="correlativo" placeholder="Correlativo"
+                                class="tw-w-full tw-p-3 tw-rounded-xl tw-border tw-border-gray-300 focus:tw-border-red-500 focus:tw-ring-2 focus:tw-ring-red-200" />
+
+                            <div *ngIf="form.get('correlativo')?.invalid && form.get('correlativo')?.touched"
+                                class="tw-text-red-500 tw-text-sm tw-mt-1">
+                                El correlativo es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CAPTCHA -->
+                    <div class="tw-flex tw-justify-center tw-py-4">
+                        <ngx-recaptcha2 formControlName="captcha" [siteKey]="siteKey" (expire)="onCaptchaExpired()"
+                            (success)="onCaptchaSuccess($event)">
+                        </ngx-recaptcha2>
+                    </div>
+
+
+                    <!-- VERSIÓN -->
+                    <div class="tw-text-center ">
+                        <span
+                            class="tw-inline-block tw-text-xs tw-text-gray-500 tw-bg-gray-100 tw-px-3 tw-py-1 tw-rounded-full">
+                            Versión 2.1.0
+                        </span>
+                    </div>
+
+                    <!-- BOTÓN CONSULTAR -->
+                    <div class="tw-text-center tw-pt-2">
+                        <button type="submit"
+                            class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-px-8 tw-py-3 tw-rounded-xl tw-font-semibold tw-shadow-lg hover:tw-shadow-xl hover:tw-scale-105 tw-transition-all tw-duration-300">
+                            Consultar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- RESULTADOS -->
+            <div #invoiceSection *ngIf="showInvoice" class="tw-bg-white tw-rounded-2xl tw-shadow-xl tw-p-6 sm:tw-p-8">
+                <!-- Header -->
+                <div class="tw-text-center tw-mb-8">
+                    <i class="pi pi-check-circle tw-text-5xl"
+                        [ngClass]="isSuccess ? 'tw-text-green-500' : 'tw-text-orange-500'"></i>
+
+                    <h2 class="tw-text-3xl tw-font-bold tw-mt-4">
+                        {{ isSuccess ? 'Documento encontrado' : 'Consultando documento...' }}
+                    </h2>
+
+                    <p class="tw-text-gray-600 tw-mt-2">
+                        {{ isSuccess
+                        ? downloadMessage
+                        : 'Estamos validando la información, espera unos segundos...' }}
+                    </p>
+                </div>
+
+                <!-- BOTONES -->
+                <div class="tw-space-y-4">
+
+                    <!-- PDF -->
+                    <button
+                        class="tw-w-full tw-py-3 tw-rounded-xl tw-flex tw-items-center tw-justify-center tw-space-x-3 tw-font-semibold tw-transition-all tw-duration-300"
+                        [ngClass]="{
+                            'tw-bg-gray-300 tw-text-gray-500 tw-cursor-not-allowed': pdfLoading || !pdfUrl,
+                            'tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white hover:tw-shadow-xl hover:tw-scale-105': !pdfLoading && pdfUrl
+                        }" [disabled]="pdfLoading || !pdfUrl" (click)="pdfUrl && openPdf()">
+
+                        <i [class]="pdfLoading ? 'pi pi-spin pi-spinner' : 'pi pi-download'"></i>
+                        <span>Descargar PDF</span>
+                    </button>
+
+                    <!-- XML -->
+                    <button
+                        class="tw-w-full tw-py-3 tw-rounded-xl tw-flex tw-items-center tw-justify-center tw-space-x-3 tw-font-semibold tw-transition-all tw-duration-300"
+                        [ngClass]="{
+                            'tw-bg-gray-300 tw-text-gray-500 tw-cursor-not-allowed': xmlLoading || !xml,
+                            'tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white hover:tw-shadow-xl hover:tw-scale-105': !xmlLoading && xml
+                        }" [disabled]="xmlLoading || !xml" (click)="xml && downloadFileFromUrl(xml.value, 'XML')">
+
+                        <i [class]="xmlLoading ? 'pi pi-spin pi-spinner' : 'pi pi-download'"></i>
+                        <span>Descargar XML</span>
+                    </button>
+
+                    <!-- CDR -->
+                    <button
+                        class="tw-w-full tw-py-3 tw-rounded-xl tw-flex tw-items-center tw-justify-center tw-space-x-3 tw-font-semibold tw-transition-all tw-duration-300"
+                        [ngClass]="{
+                            'tw-bg-gray-300 tw-text-gray-500 tw-cursor-not-allowed': cdrLoading || !cdr,
+                            'tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white hover:tw-shadow-xl hover:tw-scale-105': !cdrLoading && cdr
+                        }" [disabled]="cdrLoading || !cdr" (click)="cdr && downloadFileFromUrl(cdr.value, 'CDR')">
+
+                        <i [class]="cdrLoading ? 'pi pi-spin pi-spinner' : 'pi pi-download'"></i>
+                        <span>Descargar CDR</span>
+                    </button>
+
+                </div>
+
+                <!-- ERROR GLOBAL -->
+                <div *ngIf="errorMessage" class="tw-text-center tw-mt-6">
+                    <h2 class="tw-text-xl tw-font-bold tw-text-red-500">
+                        {{ errorMessage }}
+                    </h2>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <app-footer></app-footer>
+</div>

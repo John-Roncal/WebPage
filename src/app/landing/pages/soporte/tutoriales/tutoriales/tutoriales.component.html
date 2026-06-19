@@ -1,0 +1,29 @@
+
+<div class="tutoriales-wrapper tw-bg-white tw-py-16 tw-px-6 sm:tw-px-12 lg:tw-px-24 tw-mb-48">
+  <h2 class="tw-text-center tw-text-4xl lg:tw-text-5xl tw-font-extrabold tw-text-gray-800 tw-mb-14">
+    Tutoriales Rápidos
+  </h2>
+
+  <div class="tutoriales-container tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-10">
+    <div 
+      class="tarjeta tw-bg-white tw-rounded-2xl tw-shadow-lg tw-p-8 tw-text-center tw-transition-transform hover:tw-scale-105"
+      *ngFor="let tutorial of tutoriales"
+    >
+      <div class="tw-flex tw-items-center tw-justify-center tw-w-20 tw-h-20 tw-bg-white tw-rounded-full tw-mx-auto tw-mb-0 ">
+        <img [src]="tutorial.imagen" alt="icono" class="tw-w-10 tw-h-10">
+      </div>
+      <h3 class="tw-text-xl tw-font-semibold tw-text-gray-800 tw-mb-4">
+        {{ tutorial.titulo }}
+      </h3>
+      <a 
+        [href]="tutorial.url" 
+        target="_blank" 
+        class="tw-inline-block tw-px-6 tw-py-3 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-rounded-full tw-font-medium hover:tw-shadow-xl hover:tw-scale-105 tw-transition"
+      >
+        Ver Video
+      </a>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

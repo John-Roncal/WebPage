@@ -1,0 +1,94 @@
+<div class="tw-bg-white tw-pt-20 tw-mb-48">
+
+    <!-- Hero -->
+    <div class="tw-container tw-mx-auto tw-px-4 tw-pt-12 tw-pb-8">
+        <div class="tw-text-center tw-mb-12">
+            <div
+                class="tw-inline-flex tw-items-center tw-justify-center tw-w-16 tw-h-16 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mb-6 tw-shadow-lg">
+                <svg class="tw-w-8 tw-h-8 tw-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Engranaje más grande -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+
+                    
+                </svg>
+            </div>
+            <h1 class="tw-text-4xl lg:tw-text-5xl tw-font-bold tw-text-gray-800 tw-mb-4">
+                Herramientas de
+                <span class="tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                    Apoyo
+                </span>
+            </h1>
+            <p class="tw-text-xl tw-text-gray-600 tw-max-w-3xl tw-mx-auto tw-leading-relaxed">
+                Accesos directos a portales externos para consultas frecuentes.
+            </p>
+        </div>
+    </div>
+
+    <!-- Grid de herramientas -->
+    <div class="tw-container tw-mx-auto tw-px-4 tw-pb-16">
+        <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-3 tw-gap-8">
+
+            <div *ngFor="let herramienta of herramientas"
+                class="tw-group tw-bg-white tw-rounded-2xl tw-shadow-xl tw-overflow-hidden tw-transition-all tw-duration-300 hover:tw-shadow-2xl hover:tw--translate-y-2">
+
+                <!-- Espacio para imagen -->
+                <div class="tw-w-full tw-h-52 tw-bg-gray-100 tw-overflow-hidden">
+                    <img *ngIf="herramienta.imagen" [src]="herramienta.imagen" [alt]="herramienta.nombre"
+                        class="tw-w-full tw-h-full tw-object-contain tw-p-6 tw-transition-transform tw-duration-500 group-hover:tw-scale-105" />
+
+                    <div *ngIf="!herramienta.imagen"
+                        class="tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-bg-gradient-to-r tw-from-gray-100 tw-to-gray-200 tw-text-gray-400 tw-text-sm tw-font-medium">
+                        Imagen referencial
+                    </div>
+                </div>
+
+                <div class="tw-p-8">
+
+                    <!-- Header -->
+                    <div class="tw-flex tw-items-start tw-justify-between tw-mb-4">
+                        <div class="tw-flex tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-xl"
+                            [style.background]="herramienta.iconBg">
+                            <!-- Check icon -->
+                            <svg *ngIf="herramienta.icon === 'check'" class="tw-w-6 tw-h-6" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" [style.color]="herramienta.iconColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+
+                            <!-- Search icon -->
+                            <svg *ngIf="herramienta.icon === 'search'" class="tw-w-6 tw-h-6" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" [style.color]="herramienta.iconColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+
+                        <span
+                            class="tw-bg-blue-100 tw-text-blue-800 tw-text-xs tw-font-semibold tw-px-3 tw-py-1 tw-rounded-full">
+                            {{herramienta.categoria}}
+                        </span>
+                    </div>
+
+                    <h2 class="tw-text-xl tw-font-bold tw-text-gray-800 tw-mb-2">
+                        {{herramienta.nombre}}
+                    </h2>
+
+                    <p class="tw-text-gray-600 tw-mb-6 tw-text-sm tw-leading-relaxed">
+                        {{herramienta.descripcion}}
+                    </p>
+
+                    <button (click)="abrirEnlace(herramienta.url)"
+                        class="tw-w-full tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-px-6 tw-py-3 tw-rounded-xl tw-font-semibold tw-shadow-lg tw-transition-all tw-duration-300 hover:tw-shadow-xl hover:tw-scale-105">
+                        Abrir portal
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>

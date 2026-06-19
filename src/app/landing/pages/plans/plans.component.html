@@ -1,0 +1,366 @@
+<section id="plans" class="tw-bg-white tw-pt-20 tw-pb-16">
+  <div class="tw-container tw-mx-auto tw-px-4">
+    <!-- TÍTULO -->
+    <div class="tw-text-center tw-mb-12">
+      <h1 class="tw-text-4xl lg:tw-text-5xl tw-font-bold tw-text-gray-800 tw-mb-4">
+        Elige tu
+        <span class="tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+          plan perfecto
+        </span>
+      </h1>
+      <p class="tw-text-xl tw-text-gray-600 tw-max-w-2xl tw-mx-auto">
+        Selecciona el plan que mejor se adapte a las necesidades de tu negocio
+      </p>
+    </div>
+
+    <!-- Selector de periodicidad: Mensual / Trimestral / Anual -->
+    <div class="tw-flex tw-justify-center tw-items-center tw-mb-8">
+      <div
+        class="tw-gap-1 md:tw-gap-2 tw-border-2 tw-border-gray-200 tw-rounded-full tw-p-2 tw-inline-flex tw-bg-gray-50 tw-shadow-lg">
+        <button type="button" (click)="changeBilling('monthly')"
+          class="tw-flex tw-justify-center tw-text-center tw-items-center tw-rounded-full tw-px-6 tw-py-3 tw-cursor-pointer tw-transition-all tw-duration-300 tw-font-semibold"
+          [ngClass]="{
+        'tw-bg-gradient-to-r tw-from-orange-500 tw-to-red-500 tw-text-white tw-shadow-md tw-transform tw-scale-105': billing === 'monthly',
+        'tw-text-gray-600 hover:tw-text-gray-800 hover:tw-bg-white': billing !== 'monthly'
+      }">
+          <span class="md:tw-text-lg">Mensual</span>
+        </button>
+
+        <button type="button" (click)="changeBilling('quarterly')"
+          class="tw-flex tw-justify-center tw-text-center tw-items-center tw-rounded-full tw-px-6 tw-py-3 tw-cursor-pointer tw-transition-all tw-duration-300 tw-font-semibold"
+          [ngClass]="{
+        'tw-bg-gradient-to-r tw-from-orange-500 tw-to-red-500 tw-text-white tw-shadow-md tw-transform tw-scale-105': billing === 'quarterly',
+        'tw-text-gray-600 hover:tw-text-gray-800 hover:tw-bg-white': billing !== 'quarterly'
+      }">
+          <span class="md:tw-text-lg">Trimestral</span>
+        </button>
+
+        <button type="button" (click)="changeBilling('annual')"
+          class="tw-flex tw-justify-center tw-text-center tw-items-center tw-rounded-full tw-px-6 tw-py-3 tw-cursor-pointer tw-transition-all tw-duration-300 tw-font-semibold"
+          [ngClass]="{
+        'tw-bg-gradient-to-r tw-from-orange-500 tw-to-red-500 tw-text-white tw-shadow-md tw-transform tw-scale-105': billing === 'annual',
+        'tw-text-gray-600 hover:tw-text-gray-800 hover:tw-bg-white': billing !== 'annual'
+      }">
+          <span class="md:tw-text-lg">Anual</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======== VISTA MENSUAL ======== -->
+    <ng-container *ngIf="billing === 'monthly'">
+      <!-- Selector de planes mensuales -->
+      <div id="selectorPlan" class="tw-flex tw-justify-center tw-items-center tw-mb-8">
+        <div id="capsula"
+          class="tw-gap-1 md:tw-gap-2 tw-border-2 tw-border-gray-200 tw-rounded-full tw-p-2 tw-inline-flex tw-bg-gray-50 tw-shadow-lg">
+          <div *ngFor="let item of plans"
+            class="tw-flex tw-justify-center tw-text-center tw-items-center tw-rounded-full tw-px-6 tw-py-3 tw-cursor-pointer tw-transition-all tw-duration-300 tw-font-semibold"
+            (click)="changePlan(item.id)" [ngClass]="{
+              'tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-shadow-md tw-transform tw-scale-105': item.id == show,
+              'tw-text-gray-600 hover:tw-text-gray-800 hover:tw-bg-white': item.id != show
+            }">
+            <p class="md:tw-text-lg">{{ item.title }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel de planes mensuales -->
+      <div class="tw-max-w-6xl tw-mx-auto ">
+        <p-carousel [value]="plans" [page]="show! - 1" [numVisible]="1" [numScroll]="1" [showIndicators]="false"
+          [showNavigators]="false" [scrollLeft]="false" (onPage)="changePlan($event.page! + 1)" [circular]="true"
+          [responsiveOptions]="responsiveOptions">
+          <ng-template let-plan pTemplate="item">
+            <div class="tw-max-w-[500px] tw-my-8 tw-mx-auto">
+              <div
+                class="tw-bg-white tw-border-2 tw-border-gray-100 tw-rounded-2xl tw-p-8 tw-mx-4 tw-shadow-xl tw-relative">
+                <!-- Barra superior -->
+                <div
+                  class="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-h-2 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                </div>
+
+                <div class="tw-text-center tw-relative">
+                  <div class="tw-mb-6">
+                    <h3 class="tw-text-3xl tw-font-bold tw-text-gray-800 tw-mb-2">Plan {{ plan.title }}</h3>
+                    <p class="tw-text-lg tw-text-gray-600">{{ plan.desc }}</p>
+                  </div>
+
+                  <!-- Precio destacado -->
+                  <div class="tw-mb-8">
+                    <div
+                      class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-rounded-xl tw-py-6 tw-px-4 tw-shadow-lg">
+                      <p class="tw-text-5xl tw-font-bold tw-mb-1">S/.{{ plan.price }}</p>
+                      <p class="tw-text-xl tw-opacity-90">por mes</p>
+                    </div>
+
+                    <!-- Label tachado -->
+                    <div class="tw-mt-2">
+                      <span
+                        class="tw-inline-flex tw-items-center tw-text-md tw-text-gray-500 tw-border tw-border-gray-200 tw-rounded-full tw-px-2 tw-py-0.5">
+                        Precio incluye IGV
+                      </span>
+                    </div>
+                    <p class="tw-text-gray-800 tw-text-lg tw-mt-3 tw-font-semibold">
+                      {{ plan.comprobantes }} 
+                    </p>
+
+                    <p class="tw-text-gray-600 tw-text-lg tw-mt-4">
+                      <span class="tw-font-bold tw-text-gray-800 wobble">
+                        {{ plan.subtitle }}
+                      </span>
+                    </p>
+                  </div>
+
+                  <!-- Lista de características -->
+                  <div class="tw-text-left">
+                    <h4 class="tw-text-xl tw-font-semibold tw-text-gray-800 tw-mb-4 tw-text-center">¿Qué incluye?</h4>
+                    <ul class="tw-space-y-3">
+                      <li *ngFor="let f of plan.features" class="tw-flex tw-items-start tw-group">
+                        <span
+                          class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mr-3 tw-flex-shrink-0 tw-mt-0.5">
+                          <svg class="tw-w-3 tw-h-3 tw-text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                          </svg>
+                        </span>
+                        <span
+                          class="tw-text-gray-700 tw-leading-relaxed group-hover:tw-text-gray-800 tw-transition-colors">
+                          {{ f }}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="tw-mt-8"></div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </ng-container>
+
+    <!-- ======== VISTA TRIMESTRAL ======== -->
+    <ng-container *ngIf="billing === 'quarterly'">
+      <!-- Selector de planes trimestrales -->
+      <div id="selectorPlanQuarterly" class="tw-flex tw-justify-center tw-items-center tw-mb-8">
+        <div
+          class="tw-gap-1 md:tw-gap-2 tw-border-2 tw-border-gray-200 tw-rounded-full tw-p-2 tw-inline-flex tw-bg-gray-50 tw-shadow-lg">
+          <div *ngFor="let item of quarterlyPlans; let i = index"
+            class="tw-flex tw-justify-center tw-text-center tw-items-center tw-rounded-full tw-px-6 tw-py-3 tw-cursor-pointer tw-transition-all tw-duration-300 tw-font-semibold"
+            (click)="changeQuarterlyPlan(i + 1)" [ngClass]="{
+              'tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-shadow-md tw-transform tw-scale-105': (i + 1) === quarterlyShow,
+              'tw-text-gray-600 hover:tw-text-gray-800 hover:tw-bg-white': (i + 1) !== quarterlyShow
+            }">
+            <p class="md:tw-text-lg">{{ item.title }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel de planes trimestrales -->
+      <div class="tw-max-w-6xl tw-mx-auto ">
+        <p-carousel [value]="quarterlyPlans" [page]="quarterlyShow! - 1" [numVisible]="1" [numScroll]="1"
+          [showIndicators]="false" [showNavigators]="false" [scrollLeft]="false"
+          (onPage)="changeQuarterlyPlan($event.page! + 1)" [circular]="true" [responsiveOptions]="responsiveOptions">
+          <ng-template let-plan pTemplate="item">
+            <div class="tw-max-w-[500px] tw-my-8 tw-mx-auto">
+              <div
+                class="tw-bg-white tw-border-2 tw-border-gray-100 tw-rounded-2xl tw-p-8 tw-mx-4 tw-shadow-xl tw-relative">
+                <!-- Barra superior -->
+                <div
+                  class="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-h-2 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                </div>
+
+                <div class="tw-text-center tw-relative">
+                  <div class="tw-mb-6">
+                    <h3 class="tw-text-3xl tw-font-bold tw-text-gray-800 tw-mb-2">Plan {{ plan.title }}</h3>
+                    <p class="tw-text-lg tw-text-gray-600">Plan trimestral</p>
+                  </div>
+
+                  <!-- Precio destacado -->
+                  <div class="tw-mb-8">
+                    <div
+                      class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-rounded-xl tw-py-6 tw-px-4 tw-shadow-lg">
+                      <p class="tw-text-5xl tw-font-bold tw-mb-1">S/.{{ plan.price }}</p>
+                      <p class="tw-text-xl tw-opacity-90">por 3 meses</p>
+                    </div>
+
+                    <!-- Label tachado -->
+                    <div class="tw-mt-2">
+                      <span
+                        class="tw-inline-flex tw-items-center tw-text-md tw-text-gray-500 tw-border tw-border-gray-200 tw-rounded-full tw-px-2 tw-py-0.5">
+                        Precio incluye IGV
+                      </span>
+                    </div>
+
+                    <p class="tw-text-gray-600 tw-text-lg tw-mt-4">
+                      <span class="tw-font-bold tw-text-gray-800 wobble">
+                        {{ plan.comprobantes }} comprobantes al mes
+                      </span>
+                    </p>
+
+                    <p class="tw-text-gray-600 tw-mt-4 tw-text-lg">Ideal para {{ plan.highlight }}</p>
+                  </div>
+
+                  <!-- Lista (breve) -->
+                  <div class="tw-text-left">
+                    <h4 class="tw-text-xl tw-font-semibold tw-text-gray-800 tw-mb-4 tw-text-center">Beneficios</h4>
+                    <ul class="tw-space-y-3">
+                      <li class="tw-flex tw-items-start tw-group">
+                        <span
+                          class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mr-3 tw-flex-shrink-0 tw-mt-0.5">
+                          <svg class="tw-w-3 tw-h-3 tw-text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                          </svg>
+                        </span>
+                        <span
+                          class="tw-text-gray-700 tw-leading-relaxed group-hover:tw-text-gray-800 tw-transition-colors">
+                          Pago único por trimestre
+                        </span>
+                      </li>
+                      <li class="tw-flex tw-items-start tw-group">
+                        <span
+                          class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mr-3 tw-flex-shrink-0 tw-mt-0.5">
+                          <svg class="tw-w-3 tw-h-3 tw-text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                          </svg>
+                        </span>
+                        <span
+                          class="tw-text-gray-700 tw-leading-relaxed group-hover:tw-text-gray-800 tw-transition-colors">
+                          Acceso completo durante 90 días
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="tw-mt-8"></div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </ng-container>
+
+    <!-- ======== VISTA ANUAL ======== -->
+    <ng-container *ngIf="billing === 'annual'">
+      <!-- Selector de planes anuales -->
+      <div id="selectorPlanAnnual" class="tw-flex tw-justify-center tw-items-center tw-mb-8">
+        <div
+          class="tw-gap-1 md:tw-gap-2 tw-border-2 tw-border-gray-200 tw-rounded-full tw-p-2 tw-inline-flex tw-bg-gray-50 tw-shadow-lg">
+          <div *ngFor="let item of annualPlans; let i = index"
+            class="tw-flex tw-justify-center tw-text-center tw-items-center tw-rounded-full tw-px-6 tw-py-3 tw-cursor-pointer tw-transition-all tw-duration-300 tw-font-semibold"
+            (click)="changeAnnualPlan(i + 1)" [ngClass]="{
+              'tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-shadow-md tw-transform tw-scale-105': (i + 1) === annualShow,
+              'tw-text-gray-600 hover:tw-text-gray-800 hover:tw-bg-white': (i + 1) !== annualShow
+            }">
+            <p class="md:tw-text-lg">{{ item.title }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel de planes anuales -->
+      <div class="tw-max-w-6xl tw-mx-auto">
+        <p-carousel [value]="annualPlans" [page]="annualShow! - 1" [numVisible]="1" [numScroll]="1"
+          [showIndicators]="false" [showNavigators]="false" [scrollLeft]="false"
+          (onPage)="changeAnnualPlan($event.page! + 1)" [circular]="true" [responsiveOptions]="responsiveOptions">
+          <ng-template let-plan pTemplate="item">
+            <div class="tw-max-w-[500px] tw-my-8 tw-mx-auto">
+              <div
+                class="tw-bg-white tw-border-2 tw-border-gray-100 tw-rounded-2xl tw-p-8 tw-mx-4 tw-shadow-xl tw-relative">
+                <!-- Barra superior -->
+                <div
+                  class="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-h-2 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                </div>
+
+                <div class="tw-text-center tw-relative">
+                  <div class="tw-mb-6">
+                    <h3 class="tw-text-3xl tw-font-bold tw-text-gray-800 tw-mb-2">Plan {{ plan.title }}</h3>
+                    <p class="tw-text-lg tw-text-gray-600">Plan anual</p>
+                  </div>
+
+                  <!-- Precio destacado -->
+                  <div class="tw-mb-8">
+                    <div
+                      class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-rounded-xl tw-py-6 tw-px-4 tw-shadow-lg">
+                      <p class="tw-text-5xl tw-font-bold tw-mb-1">S/.{{ plan.price }}</p>
+                      <p class="tw-text-xl tw-opacity-90">por 12 meses</p>
+                    </div>
+
+                    <!-- Label tachado -->
+                    <div class="tw-mt-2">
+                      <span
+                        class="tw-inline-flex tw-items-center tw-text-md tw-text-gray-500 tw-border tw-border-gray-200 tw-rounded-full tw-px-2 tw-py-0.5">
+                        Precio incluye IGV
+                      </span>
+                    </div>
+
+                    <p class="tw-text-gray-600 tw-text-lg tw-mt-4">
+                      <span class="tw-font-bold tw-text-gray-800 wobble">
+                        {{ plan.comprobantes }} comprobantes al mes
+                      </span>
+                    </p>
+
+                    <p class="tw-text-gray-600 tw-mt-4 tw-text-lg">Ideal para {{ plan.highlight }}</p>
+                  </div>
+
+                  <!-- Lista de beneficios -->
+                  <div class="tw-text-left">
+                    <h4 class="tw-text-xl tw-font-semibold tw-text-gray-800 tw-mb-4 tw-text-center">Beneficios</h4>
+                    <ul class="tw-space-y-3">
+                      <li class="tw-flex tw-items-start tw-group">
+                        <span
+                          class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mr-3 tw-flex-shrink-0 tw-mt-0.5">
+                          <svg class="tw-w-3 tw-h-3 tw-text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                          </svg>
+                        </span>
+                        <span
+                          class="tw-text-gray-700 tw-leading-relaxed group-hover:tw-text-gray-800 tw-transition-colors">
+                          Pago único anual
+                        </span>
+                      </li>
+                      <li class="tw-flex tw-items-start tw-group">
+                        <span
+                          class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mr-3 tw-flex-shrink-0 tw-mt-0.5">
+                          <svg class="tw-w-3 tw-h-3 tw-text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                          </svg>
+                        </span>
+                        <span
+                          class="tw-text-gray-700 tw-leading-relaxed group-hover:tw-text-gray-800 tw-transition-colors">
+                          Acceso completo durante 365 días
+                        </span>
+                      </li>
+                      <li class="tw-flex tw-items-start tw-group">
+                        <span
+                          class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mr-3 tw-flex-shrink-0 tw-mt-0.5">
+                          <svg class="tw-w-3 tw-h-3 tw-text-white" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                          </svg>
+                        </span>
+                        <span
+                          class="tw-text-gray-700 tw-leading-relaxed group-hover:tw-text-gray-800 tw-transition-colors">
+                          La mejor opción para planificación a largo plazo
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="tw-mt-8"></div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </ng-container>
+
+  </div>
+</section>

@@ -1,0 +1,167 @@
+<div *ngIf="showNavbar">
+  <nav class="navbar">
+    <div class="content">
+      <img src="assets/logo.svg" alt="Logo de Kallpa" class="logo" [routerLink]="['/']" (click)="show = false">
+
+      <div class="display" (click)="toggle()">
+        <i class="pi" [ngClass]="{ 'pi-bars rightIcon': !show, 'pi-times leftIcon': show }"
+          style="transition: all 0.5s ease-in-out;"></i>
+      </div>
+
+      <ul class="list tw-text-center">
+
+        <!-- NUEVO: Menú Soporte con submenús -->
+        <!-- <li class="dropdown">
+          <a class="tw-cursor-pointer flex items-center">
+            Servicios
+            <i class="pi pi-chevron-down text-gray-500 ml-5 transition-transform duration-200"></i>
+          </a>
+
+          <ul class="submenu">
+            <li>
+              <a class="tw-cursor-pointer" [routerLink]="['/facturacion-electronica']">Facturacion Electronica</a>
+            </li>
+
+            <li>
+              <a class="tw-cursor-pointer" [routerLink]="['/tutoriales']">Punto de Venta (POS)</a>
+            </li>
+
+            <li>
+              <a class="tw-cursor-pointer" [routerLink]="['/drivers']">Control de Stock</a>
+            </li>
+
+
+          </ul>
+        </li> -->
+
+        <!-- <li><a class="tw-cursor-pointer" [routerLink]="['/libro-reclamaciones']">Libro de Reclamaciones</a></li> -->
+
+
+        <li><a class="tw-cursor-pointer" [routerLink]="['/consulta']">Consultar Comprobante</a></li>
+
+        <li>
+          <a class="tw-cursor-pointer" (click)="openKallpaApi()">
+            Kallpa API
+          </a>
+        </li>
+
+
+
+        <!-- NUEVO: Menú Soporte con submenús -->
+        <li class="dropdown">
+          <a class="tw-cursor-pointer flex items-center">
+            Soporte
+            <i class="pi pi-chevron-down text-gray-500 ml-5 transition-transform duration-200"></i>
+          </a>
+
+          <ul class="submenu">
+
+            <li>
+              <a class="tw-cursor-pointer" [routerLink]="['/dar-alta']">Dar Alta Sunat</a>
+            </li>
+
+            <li>
+              <a class="tw-cursor-pointer" [routerLink]="['/tutoriales']">Tutoriales</a>
+            </li>
+
+            <li>
+              <a class="tw-cursor-pointer" [routerLink]="['/drivers']">Descargar drivers</a>
+            </li>
+
+            <li><a [routerLink]="['/preguntas']">Preguntas Frecuentes</a></li>
+
+            <li><a [routerLink]="['/apoyo']">Herramientas de Apoyo</a></li>
+
+          </ul>
+        </li>
+
+
+        <li><a [routerLink]="['/demo']">Contactar a ventas</a></li>
+
+        <li><a class="tw-cursor-pointer" [routerLink]="['/accesorios']">Accesorios</a></li>
+
+        <li>
+          <button
+            class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-px-6 tw-py-3 tw-rounded-xl tw-font-semibold tw-shadow-lg tw-transition-all tw-duration-300 hover:tw-shadow-xl hover:tw-scale-105 tw-text-l"
+            (click)="submit($event)">Probar demo</button>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="leaft" [ngClass]="{ 'hiddenNav': !show, 'showNav': show }">
+    <ul>
+
+      <!-- <li (click)="toggle()">
+        <a class="tw-cursor-pointer" [routerLink]="['/facturacion-electronica']">Facturacion Electronica</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+      <li (click)="toggle()">
+        <a class="tw-cursor-pointer" [routerLink]="['/consulta']">Punto de Venta (POS)</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+
+      <li (click)="toggle()">
+        <a class="tw-cursor-pointer" [routerLink]="['/consulta']">Control de Stock</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li> -->
+
+      <li (click)="toggle()">
+        <a class="tw-cursor-pointer" [routerLink]="['/consulta']">Consultar Comprobante</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+      <li (click)="openKallpaApi(); toggle()">
+        <a class="tw-cursor-pointer">
+          Kallpa API
+        </a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+
+
+      <li (click)="toggle()">
+        <a [routerLink]="['/dar-alta']">Dar Alta Sunat</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+
+
+      <li (click)="toggle()">
+        <a [routerLink]="['/tutoriales']">Tutoriales</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+      <li (click)="toggle()">
+        <a [routerLink]="['/drivers']">Descargar drivers</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+
+
+      <li (click)="toggle()">
+        <a [routerLink]="['/preguntas']">Preguntas Frecuentes</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+      <li (click)="toggle()">
+        <a [routerLink]="['/demo']">Contactar a Ventas</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+      <li (click)="toggle()">
+        <a class="tw-cursor-pointer" [routerLink]="['/accesorios']">Accesorios</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+      <li (click)="submit($event)">
+        <a>Probar demo</a>
+        <i class="pi pi-arrow-up-right"></i>
+      </li>
+
+    </ul>
+  </div>
+</div>

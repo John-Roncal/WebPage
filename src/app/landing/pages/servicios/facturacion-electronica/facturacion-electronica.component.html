@@ -1,0 +1,169 @@
+<!-- ========================= HERO NUEVO ========================= -->
+<div class="tw-bg-white tw-pt-32 tw-pb-28 tw-min-h-screen tw-flex tw-items-center">
+    <div class="tw-container tw-mx-auto tw-px-6">
+
+        <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-16 tw-items-center">
+
+            <!-- COLUMNA IZQUIERDA -->
+            <div class="tw-flex tw-flex-col tw-gap-6">
+
+                <!-- Etiqueta superior -->
+                <span
+                    class="tw-inline-block tw-bg-red-100 tw-text-red-600 tw-font-semibold tw-px-4 tw-py-1 tw-rounded-full tw-w-fit">
+                    Plataforma oficial para emprendedores
+                </span>
+
+                <!-- Título -->
+                <h1 class="tw-text-5xl md:tw-text-6xl tw-font-extrabold tw-text-gray-800 tw-leading-tight">
+                    Gestiona tu negocio con
+                    <span
+                        class="tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                        Facturación Digital
+                    </span>
+                    avanzada
+                </h1>
+
+                <!-- Subtítulo -->
+                <p class="tw-text-xl tw-text-gray-600 tw-leading-relaxed tw-max-w-xl">
+                    Automatiza tus procesos, reduce errores y cumple con la normativa SUNAT
+                    con una plataforma diseñada para crecer contigo.
+                </p>
+
+                <!-- Ventajas rápidas -->
+                <div class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 tw-gap-4 tw-mt-4">
+
+                    <div class="tw-flex tw-items-center tw-gap-3">
+                        <div
+                            class="tw-w-10 tw-h-10 tw-rounded-xl tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-flex tw-items-center tw-justify-center tw-shadow-lg">
+                            <svg class="tw-w-6 tw-h-6 tw-text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <p class="tw-text-lg tw-text-gray-700">Comprobantes en 5 segundos</p>
+                    </div>
+
+                    <div class="tw-flex tw-items-center tw-gap-3">
+                        <div
+                            class="tw-w-10 tw-h-10 tw-rounded-xl tw-bg-gradient-to-r tw-from-orange-500 tw-to-red-500 tw-flex tw-items-center tw-justify-center tw-shadow-lg">
+                            <svg class="tw-w-6 tw-h-6 tw-text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h18M3 7h18M3 11h18M3 15h18M3 19h18"></path>
+                            </svg>
+                        </div>
+                        <p class="tw-text-lg tw-text-gray-700">Control total de inventario</p>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="tw-mt-8">
+                    <a
+                        class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-text-lg tw-font-semibold tw-px-10 tw-py-4 tw-rounded-full tw-shadow-xl tw-transition tw-transform hover:tw-scale-105 cursor-pointer">
+                        Comenzar ahora
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- COLUMNA DERECHA (NUEVO DISEÑO) -->
+            <div class="tw-flex tw-justify-center">
+
+                <div class="tw-relative tw-w-[450px] tw-h-[450px]">
+
+                    <!-- Círculo exterior suave -->
+                    <div class="tw-absolute tw-inset-0 tw-bg-gradient-to-tr tw-from-red-100 tw-to-orange-100 
+                      tw-rounded-full tw-blur-xl tw-opacity-60"></div>
+
+                    <!-- Círculo glass -->
+                    <div
+                        class="tw-absolute tw-inset-8 tw-bg-white/70 tw-backdrop-blur-xl tw-rounded-full tw-shadow-2xl">
+                    </div>
+
+                    <!-- Imagen -->
+                    <img src="assets/facturation.svg"
+                        class="tw-relative tw-z-10 tw-w-full tw-h-full tw-p-12 tw-object-contain" />
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- ========================= FUNCIONALIDADES (15) ========================= -->
+<section class="tw-bg-white tw-py-24">
+    <div class="tw-container tw-mx-auto tw-px-4">
+
+        <h2 class="tw-text-center tw-text-4xl tw-font-bold tw-text-gray-800 tw-mb-6">
+            Funcionalidades Smart que impulsan tu negocio
+        </h2>
+
+        <p class="tw-text-center tw-text-xl tw-text-gray-600 tw-max-w-3xl tw-mx-auto tw-mb-16">
+            Herramientas completas para gestionar y automatizar tu facturación electrónica.
+        </p>
+
+        <!-- GRID -->
+        <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-12 tw-max-w-5xl tw-mx-auto">
+
+            <!-- LISTA DE 15 FUNCIONALIDADES -->
+            <div class="tw-flex tw-items-start tw-gap-4" *ngFor="let item of features">
+                <div class="tw-w-14 tw-h-14 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 
+                 tw-rounded-2xl tw-flex tw-items-center tw-justify-center tw-shadow-md">
+                    <img src="assets/icons/facturacion.svg" class="tw-w-9 tw-filter tw-invert tw-brightness-0" />
+                </div>
+
+                <div>
+                    <h3 class="tw-text-xl tw-font-semibold tw-text-gray-800">{{ item.title }}</h3>
+                    <p class="tw-text-gray-600 tw-mt-1 tw-text-lg">{{ item.description }}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<!-- ========================= BENEFICIOS EXCLUSIVOS ========================= -->
+<section class="tw-bg-gray-50 tw-py-24">
+    <div class="tw-container tw-mx-auto tw-px-4">
+
+        <h2 class="tw-text-center tw-text-4xl tw-font-bold tw-text-gray-800 tw-mb-4">
+            Beneficios exclusivos
+            <span class="tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                Kallpa
+            </span>
+        </h2>
+
+        <p class="tw-text-center tw-text-xl tw-text-gray-600 tw-max-w-3xl tw-mx-auto tw-mb-16">
+            Garantías y acompañamiento que ninguna otra plataforma de facturación electrónica ofrece.
+        </p>
+
+        <!-- GRID BENEFICIOS -->
+        <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-12 tw-max-w-6xl tw-mx-auto">
+
+            <div *ngFor="let item of benefits" class="tw-flex tw-items-start tw-gap-4">
+                <div
+                    class="tw-w-12 tw-h-12 tw-bg-yellow-400 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow">
+                    ⭐
+                </div>
+                <div>
+                    <h3 class="tw-text-xl tw-font-semibold tw-text-gray-800">{{ item.title }}</h3>
+                    <p class="tw-text-gray-600 tw-mt-1 tw-text-lg tw-leading-relaxed">{{ item.description }}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

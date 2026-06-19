@@ -1,0 +1,60 @@
+
+<div class="alta-container tw-bg-white tw-py-16 tw-px-6 sm:tw-px-12 lg:tw-px-24 tw-mb-48">
+  <h2 class="tw-text-center tw-text-3xl lg:tw-text-4xl tw-font-extrabold tw-text-gray-800 tw-mb-20">
+    PASOS PARA DARTE DE ALTA
+  </h2>
+
+  <div class="card-container tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-10">
+    <div 
+      class="card tw-bg-white tw-rounded-2xl tw-shadow-lg tw-p-8 tw-text-center tw-transition-transform hover:tw-scale-105"
+      *ngFor="let item of altaItems"
+    >
+      <h3 class="tw-text-xl tw-font-semibold tw-text-gray-800 tw-mb-10">
+        {{ item.titulo.toUpperCase() }}
+      </h3>
+
+      <!-- Ícono tutorial imagen -->
+      <div class="tw-flex tw-items-center tw-justify-center tw-mb-6">
+        <img src="assets/sunat.png" alt="Icono SUNAT" class="tw-w-32 tw-h-auto">
+      </div>
+
+      <hr class="tw-border-gray-200 tw-mb-6" />
+
+      <div class="documentos tw-space-y-4">
+        
+        <!-- Botón Manual -->
+        <a [href]="item.pdfUrl" target="_blank" title="Ver PDF"
+           class="tw-flex tw-items-center tw-justify-between tw-bg-white tw-border tw-border-orange-400 tw-px-5 tw-py-3 tw-rounded-2xl tw-shadow-sm hover:tw-bg-orange-50 hover:tw-border-orange-500 tw-transition-all tw-duration-200">
+          <span class="tw-text-gray-800 tw-font-semibold tw-mr-3">Manual</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+            viewBox="0 0 24 24" fill="none" stroke="#F58B3F" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" x2="8" y1="13" y2="13" />
+            <line x1="16" x2="8" y1="17" y2="17" />
+            <line x1="10" x2="8" y1="9" y2="9" />
+          </svg>
+        </a>
+
+        <!-- Botón Video -->
+        <a *ngIf="item.videoDisponible" [href]="item.videoUrl" target="_blank" title="Ver Video"
+           class="tw-flex tw-items-center tw-justify-between tw-bg-white tw-border tw-border-orange-400 tw-px-5 tw-py-3 tw-rounded-2xl tw-shadow-sm hover:tw-bg-orange-50 hover:tw-border-orange-500 tw-transition-all tw-duration-200 tw-h-15 ">
+          <span class="tw-text-gray-800 tw-font-semibold tw-mr-3">Video Tutorial</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+            viewBox="0 0 24 24" fill="none" stroke="#F58B3F" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7" />
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+          </svg>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>
+
+

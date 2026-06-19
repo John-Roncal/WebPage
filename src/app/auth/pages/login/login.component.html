@@ -1,0 +1,27 @@
+<div class=" tw-flex tw-flex-col tw-items-center tw-justify-center tw-min-h-screen">
+    <form (ngSubmit)="submit($event)"  [formGroup]="form" class=" tw-space-y-7 md:tw-w-[400px] ">
+        <img src="assets/logo.svg" alt="Logo de Kallpa" class="tw-mx-auto tw-w-[200px]">
+        <div class="tw-text-center">
+            <h1 class="tw-text-2xl md:tw-text-4xl tw-font-bold">Iniciar Sesion</h1>
+        </div>
+        <div>
+            <label for="username"> Correo o Nombre de usuario</label>
+            <input type="text" pInputText formControlName="username" placeholder="Nombre de usuario">
+        </div>
+        <div>
+            <label for="password">Contraseña</label>
+            <input type="text" pInputText formControlName="password" placeholder="Contraseña de usuario">
+            <div class="tw-text-right tw-mt-2">
+                <a class="tw-text-gray-500 tw-text-end tw-cursor-pointer hover:tw-text-gray-900">¿Olvidaste tu contraseña?</a>
+            </div>
+        </div>
+        <div class="tw-text-center">
+            <button type="submit" class="tw-bg-[#e60f00] tw-text-white tw-rounded-2xl tw-px-7 tw-py-4 tw-text-2xl hover:tw-bg-black tw-transition-all tw-duration-300">Ingresar</button>
+        </div>
+
+        <div class="tw-text-center tw-text-lg tw-font-bold ">
+            <p class="tw-mt-20 ">¿Aun no tienes cuenta? <a class="tw-text-[#FF8127] tw-text-end tw-cursor-pointer hover:tw-text-yellow-700 tw-underline" [routerLink]="['/auth/register']">Registrate</a></p>
+        </div>
+
+    </form>
+</div>

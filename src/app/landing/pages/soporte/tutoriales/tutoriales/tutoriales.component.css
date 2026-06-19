@@ -1,0 +1,60 @@
+.tutoriales-wrapper {
+  margin-top: 100px; /* compensar navbar fixed */
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+.titulo-seccion {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.tutoriales-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.tarjeta {
+  width: 220px;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+}
+
+.icono {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.ver-video {
+  display: inline-block;
+  background-color: #e53935; /* rojo institucional */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.ver-video:hover {
+  background-color: #c62828;
+}
+

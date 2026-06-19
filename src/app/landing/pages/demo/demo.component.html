@@ -1,0 +1,47 @@
+<div class="tw-bg-white tw-pt-20">
+    <div class="tw-container tw-mx-auto tw-px-4 tw-pt-12 tw-pb-8 tw-mb-48">
+        
+        <!-- ICONO + TÍTULO centrados arriba -->
+        <div class="tw-text-center tw-mb-12">
+            <div class="tw-inline-flex tw-items-center tw-justify-center tw-w-16 tw-h-16 tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-rounded-full tw-mb-6 tw-shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="tw-w-8 tw-h-8 tw-text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M3 5a2 2 0 012-2h2.28a1 1 0 01.948.684l1.5 4.5a1 1 0 01-.272 1.042l-1.9 1.9a16.001 16.001 0 006.586 6.586l1.9-1.9a1 1 0 011.042-.272l4.5 1.5A1 1 0 0121 18.72V21a2 2 0 01-2 2h-1C9.373 23 1 14.627 1 5V4a2 2 0 012-2z" />
+                </svg>
+            </div>
+
+            <h1 class="tw-text-4xl lg:tw-text-5xl tw-font-bold tw-text-gray-800">
+                Hola, solicita
+                <span class="tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500">
+                    tu demo ahora!
+                </span>
+            </h1>
+        </div>
+
+        <!-- Sección texto + imagen centrada y compacta -->
+        <div class="tw-max-w-5xl tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-gap-8">
+            
+            <!-- Texto + botón -->
+            <div class="tw-max-w-md tw-text-left">
+                <p class="tw-text-xl tw-text-gray-600 tw-leading-relaxed tw-mb-6">
+                    Agenda tu cita y uno de nuestros vendedores irá a visitarte para mostrarte cómo funciona y cómo puede beneficiar a tu negocio. ¡Es fácil y sin compromiso!
+                </p>
+
+                <form (ngSubmit)="submit($event)" [formGroup]="form">
+                    <button type="submit"
+                        class="tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-text-white tw-px-6 tw-py-3 tw-rounded-xl tw-font-semibold tw-shadow-lg tw-transition-all tw-duration-300 hover:tw-shadow-xl hover:tw-scale-105 tw-text-xl">
+                        Solicitar cita
+                    </button>
+                </form>
+            </div>
+
+            <!-- Imagen -->
+            <div>
+                <img class="tw-w-[550px] lg:tw-w-[600px]" src="assets/facturation.svg" alt="hero imagen facturacion">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>

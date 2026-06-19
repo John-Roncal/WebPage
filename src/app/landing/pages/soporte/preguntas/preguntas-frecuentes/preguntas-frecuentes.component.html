@@ -1,0 +1,19 @@
+<div class="faq-container">
+  <h2 class="faq-title">Preguntas Frecuentes</h2>
+
+  <div class="faq-item" *ngFor="let faq of preguntas; let i = index">
+    <button class="faq-question" (click)="togglePregunta(i)">
+      {{ faq.pregunta }}
+      <i
+        class="pi"
+        [ngClass]="faq.abierto ? 'pi-chevron-up' : 'pi-chevron-down'"
+        style="color: #c0392b; font-size: 1.2rem;"
+      ></i>
+    </button>
+    <div class="faq-respuesta" *ngIf="faq.abierto">
+      <p>{{ faq.respuesta }}</p>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

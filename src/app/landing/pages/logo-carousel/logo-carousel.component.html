@@ -1,0 +1,45 @@
+<section class="tw-py-5 tw-overflow-hidden tw-relative">
+    <div class="tw-container tw-mx-auto tw-px-4 sm:tw-px-6">
+
+        <!-- Título -->
+        <div class="tw-text-center tw-mb-6 sm:tw-mb-8">
+            <p
+                class="tw-text-xl sm:tw-text-2xl tw-font-semibold tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500 tw-block">
+                ¡Más de 500 Empresas
+            </p>
+            <p class="tw-text-gray-600 tw-text-lg sm:tw-text-xl">
+                confían en nosotros!
+            </p>
+        </div>
+
+        <!-- Carrusel 2 -->
+        <!-- Carrusel wrapper -->
+        <div class="tw-relative tw-w-full tw-overflow-hidden tw-select-none" style="max-width: 100vw;">
+            <div
+                class="tw-flex tw-items-center tw-gap-2 sm:tw-gap-4 tw-animate-scroll tw-w-[calc(110px*30)] sm:tw-w-[calc(180px*30)]">
+                <ng-container *ngFor="let logo of logos2.concat(logos2)">
+                    <div class="tw-flex tw-items-center tw-justify-center tw-w-[90px] sm:tw-w-[160px]">
+                        <img [src]="logo.src" [alt]="logo.alt"
+                            class="logo-item tw-h-10 sm:tw-h-20 md:tw-h-24 tw-object-contain tw-transition-all tw-duration-500" />
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- Carrusel 1 -->
+        <!-- Carrusel wrapper -->
+        <div class="tw-relative tw-w-full tw-overflow-hidden tw-select-none" style="max-width: 100vw;">
+            <div
+                class="tw-flex tw-items-center tw-gap-2 sm:tw-gap-4 tw-animate-scroll tw-w-[calc(110px*30)] sm:tw-w-[calc(180px*30)]">
+                <ng-container *ngFor="let logo of logos1.concat(logos1)">
+                    <div class="tw-flex tw-items-center tw-justify-center tw-w-[90px] sm:tw-w-[160px]">
+                        <img [src]="logo.src" [alt]="logo.alt"
+                            class="logo-item tw-h-10 sm:tw-h-20 md:tw-h-24 tw-object-contain tw-transition-all tw-duration-500" />
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="tw-absolute tw-inset-0 tw-pointer-events-none"></div>
+</section>

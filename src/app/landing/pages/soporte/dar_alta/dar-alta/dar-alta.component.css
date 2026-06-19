@@ -1,0 +1,96 @@
+.alta-container {
+  margin-top: 100px; /* compensar navbar fixed */
+  padding: 2rem;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.titulo-seccion {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 2.5rem;
+  max-width: 440px;
+  flex: 1 1 380px;
+  width: 100%;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+
+.tutorial-icono svg {
+  margin-bottom: 1rem;
+}
+
+.linea-separadora {
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.documentos {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.doc-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #444;
+  gap: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.doc-link:hover {
+  transform: scale(1.05);
+  background-color: #fef5ef;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+}
+
+
+.doc-link span {
+  margin-right: 0.25rem;
+}
+
+.tutorial-icono {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+.tutorial-icono img {
+  width: 150px;
+  height: auto;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.icono-doc {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.2s;
+}
+

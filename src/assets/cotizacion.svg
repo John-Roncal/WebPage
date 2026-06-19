@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-dollar-sign">
+  <path d="M16 2H8a2 2 0 0 0-2 2v2h12V4a2 2 0 0 0-2-2Z" />
+  <path d="M4 6v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6" />
+  <path d="M12 11.5a2 2 0 1 0 2 2c0-1.333-2-2-2-2Zm0 4v1m0-7v1" />
+</svg>
