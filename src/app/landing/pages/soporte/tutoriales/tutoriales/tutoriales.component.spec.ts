@@ -1,8 +1,10 @@
+/// <reference types="jasmine" />
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+// Use Jasmine globals provided by Angular TestBed (no explicit import needed)
 
 import { TutorialesComponent } from './tutoriales.component';
 
-describe('TutorialesComponent', () => {
+describe('Tutoriales2Component', () => {
   let component: TutorialesComponent;
   let fixture: ComponentFixture<TutorialesComponent>;
 
