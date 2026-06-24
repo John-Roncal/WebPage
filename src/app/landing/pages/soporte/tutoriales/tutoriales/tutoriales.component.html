@@ -1,5 +1,9 @@
-<div class="tw-bg-white tw-pt-20 tw-min-h-screen">
+<!-- ══════════════════════════════════════════════════════════════
+     TUTORIALES INTERACTIVOS - KALLPA FACTURACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<div class="tw-bg-white tw-pt-20 tw-min-h-screen tw-relative">
 
+  <!-- ── HERO HEADER ────────────────────────────────────────────── -->
   <div class="tw-container tw-mx-auto tw-px-4 tw-pt-8 md:tw-pt-12 tw-pb-4">
     <div class="tw-text-center tw-mb-8 md:tw-mb-10">
       <div class="tw-inline-flex tw-items-center tw-justify-center tw-w-14 tw-h-14 md:tw-w-16 md:tw-h-16
@@ -25,6 +29,7 @@
       </p>
     </div>
 
+    <!-- ── BREADCRUMB / RESET ──────────────────────────────────── -->
     <div *ngIf="step !== 'device'"
          class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2
                 tw-mb-8 tw-text-xs md:tw-text-sm tw-text-gray-500">
@@ -58,6 +63,77 @@
     </div>
   </div>
 
+  <!-- ════════════════════════════════════════════════════════════
+       MODALS
+  ════════════════════════════════════════════════════════════ -->
+
+  <!-- WELCOME / TERMS MODAL (Se muestra sobre el índice de cada flujo si no ha aceptado) -->
+  <div *ngIf="step === 'index' && !acceptedTerms" class="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-bg-black/60 tw-p-4 tw-backdrop-blur-sm">
+    <div class="tw-bg-white tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-2xl tw-animate-fade-in-up">
+      <div class="tw-text-4xl tw-text-center tw-mb-4">🎁</div>
+      <h3 class="tw-text-xl md:tw-text-2xl tw-font-bold tw-text-gray-800 tw-text-center tw-mb-2">¡Desbloquea una recompensa!</h3>
+      <p class="tw-text-gray-600 tw-text-sm tw-text-center tw-mb-6">
+        Completa únicamente los tutoriales del flujo <strong>{{ activeFlow?.label }}</strong> para ganar un beneficio exclusivo para tu negocio.
+      </p>
+      
+      <div class="tw-flex tw-items-start tw-gap-3 tw-mb-6 tw-bg-gray-50 tw-p-3 tw-rounded-lg">
+        <input type="checkbox" id="terms" [checked]="acceptedTermsTemp" (change)="toggleTerms($event)" 
+               class="tw-mt-1 tw-w-4 tw-h-4 tw-text-red-500 tw-rounded focus:tw-ring-red-500 tw-cursor-pointer">
+        <label for="terms" class="tw-text-sm tw-text-gray-700 tw-cursor-pointer">
+          He leído y acepto los 
+          <button (click)="showTermsModal = true; $event.preventDefault();" class="tw-text-red-500 tw-font-semibold hover:tw-underline">términos y condiciones</button>.
+        </label>
+      </div>
+
+      <button (click)="acceptAndContinue()" [disabled]="!acceptedTermsTemp"
+              class="tw-w-full tw-py-3 tw-rounded-xl tw-font-bold tw-transition-all tw-duration-300"
+              [class.tw-bg-gray-300]="!acceptedTermsTemp" [class.tw-text-gray-500]="!acceptedTermsTemp" [class.tw-cursor-not-allowed]="!acceptedTermsTemp"
+              [class.tw-bg-gradient-to-r]="acceptedTermsTemp" [class.tw-from-red-500]="acceptedTermsTemp" [class.tw-to-orange-500]="acceptedTermsTemp" [class.tw-text-white]="acceptedTermsTemp" [class.hover:tw-scale-105]="acceptedTermsTemp">
+        Continuar a los tutoriales
+      </button>
+    </div>
+  </div>
+
+  <!-- TERMS AND CONDITIONS MODAL -->
+  <div *ngIf="showTermsModal" class="tw-fixed tw-inset-0 tw-z-[60] tw-flex tw-items-center tw-justify-center tw-bg-black/60 tw-p-4">
+    <div class="tw-bg-white tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-lg tw-w-full tw-shadow-2xl tw-max-h-[85vh] tw-flex tw-flex-col tw-animate-fade-in-up">
+      <h3 class="tw-text-xl md:tw-text-2xl tw-font-bold tw-text-gray-800 tw-mb-4">Términos y Condiciones</h3>
+      <div class="tw-overflow-y-auto tw-flex-1 tw-pr-2 tw-text-sm tw-text-gray-600 tw-space-y-4">
+        <p>1. Para reclamar la recompensa, el usuario debe visualizar la totalidad de los videos tutoriales disponibles correspondientes única y exclusivamente al flujo seleccionado (ej. {{ activeFlow?.label }}).</p>
+        <p>2. No es necesario visualizar los tutoriales de otros dispositivos o rubros que no apliquen a su negocio.</p>
+        <p>3. La recompensa es válida por única vez por negocio o cuenta registrada en Kallpa Facturación.</p>
+        <p>4. El beneficio otorgado será entregado tras la validación de la finalización del módulo mediante nuestro canal oficial de WhatsApp.</p>
+        <p>5. Kallpa se reserva el derecho de modificar, actualizar o retirar esta promoción y sus beneficios en cualquier momento sin previo aviso.</p>
+      </div>
+      <button (click)="showTermsModal = false" class="tw-mt-6 tw-w-full tw-bg-gray-100 hover:tw-bg-gray-200 tw-text-gray-800 tw-font-bold tw-py-3 tw-rounded-xl tw-transition-colors">
+        Entendido, cerrar
+      </button>
+    </div>
+  </div>
+
+  <!-- REWARD MODAL (ON COMPLETION) -->
+  <div *ngIf="showRewardModal" class="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-bg-black/60 tw-p-4">
+    <div class="tw-bg-white tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-2xl tw-text-center tw-animate-fade-in-up">
+      <div class="tw-text-5xl tw-mb-4">🎉</div>
+      <h3 class="tw-text-2xl tw-font-bold tw-text-gray-800 tw-mb-2">¡Flujo Completado!</h3>
+      <p class="tw-text-gray-600 tw-text-sm tw-mb-6">Tu dedicación tiene premio. Reclama tu recompensa especial ahora mismo a través de WhatsApp.</p>
+      
+      <button (click)="claimReward()" 
+              class="tw-w-full tw-bg-green-500 hover:tw-bg-green-600 tw-text-white tw-font-bold tw-py-3 tw-px-4 tw-rounded-xl tw-shadow-md hover:tw-scale-105 tw-transition-all tw-flex tw-items-center tw-justify-center tw-gap-2 tw-mb-3">
+        <svg class="tw-w-6 tw-h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+        Reclamar por WhatsApp
+      </button>
+      <button (click)="showRewardModal = false" class="tw-text-sm tw-text-gray-500 hover:tw-text-gray-800 tw-font-medium tw-transition-colors">
+        Cerrar
+      </button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STEP 1 — SELECCIÓN DE DISPOSITIVO
+  ════════════════════════════════════════════════════════════ -->
   <div *ngIf="step === 'device'"
        class="tw-container tw-mx-auto tw-px-4 tw-pb-16 md:tw-pb-24">
     <h2 class="tw-text-xl md:tw-text-2xl tw-font-bold tw-text-gray-700 tw-text-center tw-mb-8 md:tw-mb-10">
@@ -66,6 +142,7 @@
 
     <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6 md:tw-gap-8 tw-max-w-3xl tw-mx-auto">
 
+      <!-- PC / LAPTOP -->
       <button (click)="selectDevice('pc')"
               class="tw-group tw-bg-white tw-rounded-2xl tw-shadow-lg md:tw-shadow-xl tw-p-8 md:tw-p-10
                      tw-border-2 tw-border-transparent
@@ -93,6 +170,7 @@
         </div>
       </button>
 
+      <!-- CELULAR / TABLET -->
       <button (click)="selectDevice('mobile')"
               class="tw-group tw-bg-white tw-rounded-2xl tw-shadow-lg md:tw-shadow-xl tw-p-8 md:tw-p-10
                      tw-border-2 tw-border-transparent
@@ -123,6 +201,9 @@
     </div>
   </div>
 
+  <!-- ════════════════════════════════════════════════════════════
+       STEP 2 — SELECCIÓN DE RUBRO (solo móvil)
+  ════════════════════════════════════════════════════════════ -->
   <div *ngIf="step === 'category'"
        class="tw-container tw-mx-auto tw-px-4 tw-pb-16 md:tw-pb-24">
     <h2 class="tw-text-xl md:tw-text-2xl tw-font-bold tw-text-gray-700 tw-text-center tw-mb-2 md:tw-mb-3">
@@ -134,6 +215,7 @@
 
     <div class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 md:tw-grid-cols-3 tw-gap-6 tw-max-w-4xl tw-mx-auto">
 
+      <!-- RESTAURANTE -->
       <button (click)="selectCategory('restaurant')"
               class="tw-group tw-bg-white tw-rounded-2xl tw-shadow-md md:tw-shadow-lg tw-p-6 md:tw-p-8
                      tw-border-2 tw-border-transparent
@@ -144,6 +226,7 @@
         <p class="tw-text-xs md:tw-text-sm tw-text-gray-500">Pedidos por mesa, comandas y menú digital.</p>
       </button>
 
+      <!-- ROPA / CALZADO -->
       <button (click)="selectCategory('clothing')"
               class="tw-group tw-bg-white tw-rounded-2xl tw-shadow-md md:tw-shadow-lg tw-p-6 md:tw-p-8
                      tw-border-2 tw-border-transparent
@@ -154,6 +237,7 @@
         <p class="tw-text-xs md:tw-text-sm tw-text-gray-500">Variantes por talla y color, stock por SKU.</p>
       </button>
 
+      <!-- OTROS -->
       <button (click)="selectCategory('other')"
               class="tw-group tw-bg-white tw-rounded-2xl tw-shadow-md md:tw-shadow-lg tw-p-6 md:tw-p-8
                      tw-border-2 tw-border-transparent
@@ -167,50 +251,13 @@
     </div>
   </div>
 
+  <!-- ════════════════════════════════════════════════════════════
+       STEP 3 — ÍNDICE DE TUTORIALES
+  ════════════════════════════════════════════════════════════ -->
   <div *ngIf="step === 'index' && activeFlow"
        class="tw-container tw-mx-auto tw-px-4 tw-pb-16 md:tw-pb-24">
 
-    <div *ngIf="!isFlowCompleted" 
-         class="tw-max-w-4xl tw-mx-auto tw-mb-8 
-                tw-bg-gradient-to-r tw-from-orange-50 tw-to-red-50 
-                tw-border tw-border-orange-200 tw-rounded-2xl tw-p-5 md:tw-p-6 
-                tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-justify-between tw-gap-4 tw-shadow-sm">
-      <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-gap-4 tw-text-center sm:tw-text-left">
-        <div class="tw-text-4xl tw-animate-bounce">🎁</div>
-        <div>
-          <h4 class="tw-font-bold tw-text-orange-800 tw-text-lg">¡Completa este módulo y gana una recompensa!</h4>
-          <p class="tw-text-sm tw-text-orange-700 tw-mt-1">Mira todos los tutoriales disponibles para desbloquear un beneficio exclusivo para tu negocio.</p>
-        </div>
-      </div>
-      <div class="tw-text-sm tw-font-bold tw-text-orange-800 tw-bg-white tw-px-4 tw-py-2 tw-rounded-xl tw-shadow-sm tw-whitespace-nowrap">
-        {{ viewedCount }} / {{ viewableCount }} vistos
-      </div>
-    </div>
-
-    <div *ngIf="isFlowCompleted" 
-         class="tw-max-w-4xl tw-mx-auto tw-mb-8 
-                tw-bg-gradient-to-r tw-from-green-500 tw-to-emerald-600 
-                tw-rounded-2xl tw-p-6 tw-shadow-lg 
-                tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-justify-between tw-gap-6">
-      <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-gap-4 tw-text-center sm:tw-text-left">
-        <div class="tw-text-5xl">🎉</div>
-        <div>
-          <h4 class="tw-font-bold tw-text-white tw-text-xl">¡Felicidades! Has completado el módulo</h4>
-          <p class="tw-text-green-100 tw-text-sm tw-mt-1">Tu dedicación tiene premio. Reclama tu recompensa especial ahora mismo.</p>
-        </div>
-      </div>
-      <button (click)="claimReward()" 
-              class="tw-flex-shrink-0 tw-w-full sm:tw-w-auto tw-justify-center
-                     tw-bg-white tw-text-green-600 tw-font-bold tw-px-6 tw-py-3 
-                     tw-rounded-xl tw-shadow-md hover:tw-scale-105 tw-transition-transform 
-                     tw-flex tw-items-center tw-gap-2">
-        <svg class="tw-w-6 tw-h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-        </svg>
-        Reclamar por WhatsApp
-      </button>
-    </div>
-
+    <!-- Progreso guardado -->
     <div *ngIf="viewedCount > 0 && !isFlowCompleted"
          class="tw-max-w-4xl tw-mx-auto tw-mb-6
                 tw-bg-green-50 tw-border tw-border-green-200
@@ -237,6 +284,7 @@
       </button>
     </div>
 
+    <!-- Header del flujo -->
     <div class="tw-max-w-4xl tw-mx-auto tw-flex tw-flex-col sm:tw-flex-row
                 tw-items-start sm:tw-items-center tw-justify-between tw-gap-4 tw-mb-8">
       <div>
@@ -247,21 +295,33 @@
           {{ activeFlow.tutorials.length }} tutoriales · Sigue el orden o salta directamente
         </p>
       </div>
-      <button (click)="startFlow()"
-              class="tw-w-full sm:tw-w-auto tw-justify-center tw-flex-shrink-0
-                     tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500
-                     tw-text-white tw-font-semibold
-                     tw-px-6 md:tw-px-7 tw-py-3 tw-rounded-xl tw-shadow-lg
-                     hover:tw-shadow-xl hover:tw-scale-105
-                     tw-transition-all tw-duration-300
-                     tw-flex tw-items-center tw-gap-2">
-        <svg class="tw-w-5 tw-h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
-        {{ viewedCount > 0 ? 'Continuar flujo' : 'Iniciar flujo' }}
-      </button>
+      <div class="tw-flex tw-gap-3 tw-w-full sm:tw-w-auto">
+        <button *ngIf="isFlowCompleted" (click)="showRewardModal = true"
+                class="tw-w-full sm:tw-w-auto tw-justify-center tw-flex-shrink-0
+                       tw-bg-green-500 hover:tw-bg-green-600
+                       tw-text-white tw-font-semibold
+                       tw-px-6 md:tw-px-7 tw-py-3 tw-rounded-xl tw-shadow-md
+                       tw-transition-all tw-duration-300
+                       tw-flex tw-items-center tw-gap-2">
+          Ver Recompensa
+        </button>
+        <button (click)="startFlow()"
+                class="tw-w-full sm:tw-w-auto tw-justify-center tw-flex-shrink-0
+                       tw-bg-gradient-to-r tw-from-red-500 tw-to-orange-500
+                       tw-text-white tw-font-semibold
+                       tw-px-6 md:tw-px-7 tw-py-3 tw-rounded-xl tw-shadow-lg
+                       hover:tw-shadow-xl hover:tw-scale-105
+                       tw-transition-all tw-duration-300
+                       tw-flex tw-items-center tw-gap-2">
+          <svg class="tw-w-5 tw-h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          {{ viewedCount > 0 ? 'Continuar flujo' : 'Iniciar flujo' }}
+        </button>
+      </div>
     </div>
 
+    <!-- Grid de tarjetas índice -->
     <div class="tw-max-w-4xl tw-mx-auto tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4 md:tw-gap-6">
       <div *ngFor="let tut of activeFlow.tutorials; let i = index"
            class="tw-relative tw-bg-white tw-rounded-2xl tw-shadow-md tw-overflow-hidden
@@ -274,11 +334,14 @@
            [class.tw-border-gray-100]="!tut.videoUrl"
            [class.tw-opacity-70]="!tut.videoUrl">
 
+        <!-- Thumbnail / placeholder -->
         <div class="tw-relative tw-bg-gray-100 tw-h-32 md:tw-h-36 tw-flex tw-items-center tw-justify-center">
           
+          <!-- Viewed check mark overlay -->
           <div *ngIf="hasViewed(i)" 
                class="tw-absolute tw-inset-0 tw-bg-green-500/10 tw-z-10 tw-pointer-events-none"></div>
 
+          <!-- Step number badge -->
           <span class="tw-absolute tw-top-3 tw-left-3 tw-z-20
                        tw-text-white tw-text-xs tw-font-bold
                        tw-w-7 tw-h-7 tw-rounded-full
@@ -291,6 +354,7 @@
             <svg *ngIf="hasViewed(i)" class="tw-w-4 tw-h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
           </span>
 
+          <!-- Próximamente badge -->
           <span *ngIf="!tut.videoUrl"
                 class="tw-absolute tw-top-3 tw-right-3
                        tw-bg-gray-200 tw-text-gray-500
@@ -299,6 +363,7 @@
             Próximamente
           </span>
 
+          <!-- Play button -->
           <button *ngIf="tut.videoUrl"
                   (click)="jumpToTutorial(i)"
                   class="tw-w-12 tw-h-12 md:tw-w-14 md:tw-h-14 tw-rounded-full tw-z-20
@@ -313,6 +378,7 @@
             </svg>
           </button>
 
+          <!-- Disabled play (no video) -->
           <div *ngIf="!tut.videoUrl"
                class="tw-w-12 tw-h-12 md:tw-w-14 md:tw-h-14 tw-rounded-full
                       tw-bg-gray-300 tw-z-20
@@ -323,6 +389,7 @@
           </div>
         </div>
 
+        <!-- Info -->
         <div class="tw-p-4 md:tw-p-5">
           <h3 class="tw-font-bold tw-text-gray-800 tw-text-sm tw-leading-snug tw-mb-1">
             {{ tut.title }}
@@ -343,10 +410,14 @@
     </div>
   </div>
 
+  <!-- ════════════════════════════════════════════════════════════
+       STEP 4 — REPRODUCTOR
+  ════════════════════════════════════════════════════════════ -->
   <div *ngIf="step === 'player' && activeFlow && currentTutorial"
        class="tw-container tw-mx-auto tw-px-4 tw-pb-16 md:tw-pb-24">
     <div class="tw-max-w-4xl tw-mx-auto">
 
+      <!-- Progress bar -->
       <div class="tw-mb-4 md:tw-mb-6">
         <div class="tw-flex tw-justify-between tw-items-center tw-text-xs md:tw-text-sm tw-text-gray-500 tw-mb-2">
           <span>Tutorial {{ currentIndex + 1 }} de {{ activeFlow.tutorials.length }}</span>
@@ -360,8 +431,10 @@
         </div>
       </div>
 
+      <!-- Video area -->
       <div class="tw-bg-white tw-rounded-xl md:tw-rounded-2xl tw-shadow-xl tw-overflow-hidden tw-mb-6">
 
+        <!-- Has video -->
         <div *ngIf="currentTutorial.videoUrl"
              class="tw-relative tw-w-full" style="padding-top: 56.25%">
           <iframe
@@ -373,6 +446,7 @@
           </iframe>
         </div>
 
+        <!-- No video yet -->
         <div *ngIf="!currentTutorial.videoUrl"
              class="tw-relative tw-w-full tw-bg-gray-50 tw-flex tw-flex-col
                     tw-items-center tw-justify-center tw-py-16 md:tw-py-20 tw-px-6 tw-text-center"
@@ -389,6 +463,7 @@
           </p>
         </div>
 
+        <!-- Tutorial info panel -->
         <div class="tw-p-4 md:tw-p-6 tw-border-t tw-border-gray-100">
           <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-start tw-justify-between tw-gap-4">
             <div>
@@ -426,8 +501,10 @@
         </div>
       </div>
 
+      <!-- Navigation controls -->
       <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-justify-between tw-gap-4">
 
+        <!-- Prev -->
         <button (click)="goPrev()" [disabled]="isFirst()"
                 class="tw-flex tw-items-center tw-gap-2 tw-font-semibold tw-px-6 tw-py-3
                        tw-rounded-xl tw-border-2 tw-transition-all tw-duration-300 tw-w-full sm:tw-w-auto tw-justify-center"
@@ -444,6 +521,7 @@
           Anterior
         </button>
 
+        <!-- Index button -->
         <button (click)="goToIndex()"
                 class="tw-text-sm tw-text-gray-500 hover:tw-text-red-500
                        tw-transition-colors tw-underline tw-underline-offset-2
@@ -455,6 +533,7 @@
           Ver índice
         </button>
 
+        <!-- Next / Finish -->
         <button (click)="isLast() ? finishFlow() : goNext()"
                 class="tw-flex tw-items-center tw-gap-2 tw-font-semibold tw-px-6 tw-py-3
                        tw-rounded-xl tw-transition-all tw-duration-300 tw-w-full sm:tw-w-auto tw-justify-center
@@ -473,6 +552,7 @@
 
       </div>
 
+      <!-- Sidebar: upcoming tutorials -->
       <div class="tw-mt-8 md:tw-mt-10">
         <h3 class="tw-text-xs md:tw-text-sm tw-font-semibold tw-text-gray-500
                    tw-uppercase tw-tracking-wide tw-mb-3 md:tw-mb-4">
@@ -492,6 +572,7 @@
                   [class.hover:tw-bg-gray-50]="i !== currentIndex && !!tut.videoUrl"
                   [class.tw-cursor-not-allowed]="!tut.videoUrl"
                   [class.tw-opacity-60]="!tut.videoUrl">
+            <!-- Number -->
             <span class="tw-flex-shrink-0 tw-w-6 tw-h-6 md:tw-w-7 md:tw-h-7 tw-rounded-full
                          tw-flex tw-items-center tw-justify-center tw-text-xs tw-font-bold"
                   [class.tw-bg-gradient-to-r]="i === currentIndex"
@@ -505,11 +586,13 @@
               <ng-container *ngIf="!hasViewed(i) || i === currentIndex">{{ i + 1 }}</ng-container>
               <svg *ngIf="hasViewed(i) && i !== currentIndex" class="tw-w-3.5 tw-h-3.5 md:tw-w-4 md:tw-h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
             </span>
+            <!-- Title -->
             <span class="tw-text-xs md:tw-text-sm tw-font-medium tw-line-clamp-1"
                   [class.tw-text-gray-800]="i === currentIndex"
                   [class.tw-text-gray-600]="i !== currentIndex">
               {{ tut.title }}
             </span>
+            <!-- Badges -->
             <span *ngIf="!tut.videoUrl"
                   class="tw-ml-auto tw-text-[10px] md:tw-text-xs tw-bg-gray-100 tw-text-gray-400
                          tw-px-2 tw-py-0.5 tw-rounded-full tw-flex-shrink-0">

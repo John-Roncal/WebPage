@@ -27,8 +27,8 @@ export const TUTORIAL_FLOWS: TutorialFlow[] = [
         id: 1,
         title: 'Introducción a Kallpa Facturación',
         description: 'Conoce la interfaz principal, el panel de control y cómo navegar por el sistema en la versión web.',
-        duration: '5 min',
-        videoUrl: undefined,
+        duration: '1 min',
+        videoUrl: 'https://youtu.be/yHa_GHueWnM',
       },
       {
         id: 2,

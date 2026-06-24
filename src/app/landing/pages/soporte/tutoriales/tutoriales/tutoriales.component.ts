@@ -21,6 +21,7 @@ interface ProgressState {
   currentIndex: number;
   viewedIndices: number[];
   completed: boolean;
+  acceptedTerms: boolean;
 }
 
 @Component({
@@ -35,6 +36,12 @@ export class TutorialesComponent implements OnInit {
   step: Step = 'device';
   selectedDevice: DeviceType | null = null;
   selectedCategory: MobileCategory | null = null;
+
+  // ── Modals & Terms ────────────────────────────────────────────
+  showTermsModal = false;
+  showRewardModal = false;
+  acceptedTerms = false;
+  acceptedTermsTemp = false;
 
   // ── Active flow & player ──────────────────────────────────────
   activeFlow: TutorialFlow | null = null;
@@ -70,6 +77,16 @@ export class TutorialesComponent implements OnInit {
     this.restoreProgress();
   }
 
+  // ── Terms & Modals ────────────────────────────────────────────
+  toggleTerms(event: Event): void {
+    this.acceptedTermsTemp = (event.target as HTMLInputElement).checked;
+  }
+
+  acceptAndContinue(): void {
+    this.acceptedTerms = true;
+    this.saveProgress();
+  }
+
   // ── Device selection ─────────────────────────────────────────
   selectDevice(device: DeviceType): void {
     this.selectedDevice = device;
@@ -101,7 +118,6 @@ export class TutorialesComponent implements OnInit {
 
   // ── Index → Player ────────────────────────────────────────────
   startFlow(): void {
-    // If returning, go to the first unwatched tutorial if possible
     if (this.viewedCount > 0 && this.activeFlow) {
       const firstUnwatched = this.activeFlow.tutorials.findIndex((t, i) => t.videoUrl && !this.viewedIndices.has(i));
       this.currentIndex = firstUnwatched !== -1 ? firstUnwatched : 0;
@@ -117,7 +133,7 @@ export class TutorialesComponent implements OnInit {
   jumpToTutorial(index: number): void {
     if (!this.activeFlow) return;
     const tut = this.activeFlow.tutorials[index];
-    if (!tut.videoUrl) return; // disabled if no video yet
+    if (!tut.videoUrl) return; 
     this.currentIndex = index;
     this.markAsViewed(index);
     this.step = 'player';
@@ -129,14 +145,13 @@ export class TutorialesComponent implements OnInit {
     if (!this.activeFlow) return;
     if (this.currentIndex < this.activeFlow.tutorials.length - 1) {
       this.currentIndex++;
-      // Skip "Próximamente" videos
       while(this.currentIndex < this.activeFlow.tutorials.length && !this.activeFlow.tutorials[this.currentIndex].videoUrl) {
          this.currentIndex++;
       }
       if(this.currentIndex < this.activeFlow.tutorials.length) {
          this.markAsViewed(this.currentIndex);
       } else {
-         this.currentIndex = this.activeFlow.tutorials.length - 1; // Fallback
+         this.currentIndex = this.activeFlow.tutorials.length - 1; 
       }
       this.saveProgress();
     }
@@ -145,7 +160,6 @@ export class TutorialesComponent implements OnInit {
   goPrev(): void {
     if (this.currentIndex > 0) {
       this.currentIndex--;
-      // Skip backwards over "Próximamente" videos
       while(this.currentIndex > 0 && !this.activeFlow?.tutorials[this.currentIndex].videoUrl) {
          this.currentIndex--;
       }
@@ -160,15 +174,12 @@ export class TutorialesComponent implements OnInit {
 
   finishFlow(): void {
     this.markAsViewed(this.currentIndex);
-    this.isFlowCompleted = true;
-    this.saveProgress();
     this.step = 'index';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   isLast(): boolean {
     if (!this.activeFlow) return false;
-    // Check if there are any viewable tutorials left ahead
     const remainingViewable = this.activeFlow.tutorials.slice(this.currentIndex + 1).some(t => !!t.videoUrl);
     return !remainingViewable;
   }
@@ -185,7 +196,10 @@ export class TutorialesComponent implements OnInit {
     if (!this.activeFlow || !this.activeFlow.tutorials[index]?.videoUrl) return;
     this.viewedIndices.add(index);
     if (this.viewableCount > 0 && this.viewedIndices.size >= this.viewableCount) {
-      this.isFlowCompleted = true;
+      if (!this.isFlowCompleted) {
+        this.isFlowCompleted = true;
+        this.showRewardModal = true; 
+      }
     }
   }
 
@@ -202,6 +216,10 @@ export class TutorialesComponent implements OnInit {
     this.selectedDevice = null;
     this.selectedCategory = null;
     this.activeFlow = null;
+    this.showTermsModal = false;
+    this.showRewardModal = false;
+    this.acceptedTerms = false;
+    this.acceptedTermsTemp = false;
     this.resetFlowProgress();
     localStorage.removeItem(STORAGE_KEY);
   }
@@ -213,7 +231,8 @@ export class TutorialesComponent implements OnInit {
       category: this.selectedCategory,
       currentIndex: this.currentIndex,
       viewedIndices: Array.from(this.viewedIndices),
-      completed: this.isFlowCompleted
+      completed: this.isFlowCompleted,
+      acceptedTerms: this.acceptedTerms
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
@@ -227,6 +246,8 @@ export class TutorialesComponent implements OnInit {
 
       this.selectedDevice = state.device;
       this.selectedCategory = state.category ?? null;
+      this.acceptedTerms = state.acceptedTerms || false;
+      this.acceptedTermsTemp = this.acceptedTerms;
 
       if (state.device === 'pc') {
         this.activeFlow = this.flows.find((f) => f.device === 'pc') ?? null;
@@ -242,7 +263,8 @@ export class TutorialesComponent implements OnInit {
         this.currentIndex = Math.min(state.currentIndex ?? 0, max);
         this.viewedIndices = new Set(state.viewedIndices || []);
         this.isFlowCompleted = state.completed || false;
-        this.step = 'index'; // always land on index, let user resume
+        
+        this.step = 'index'; 
       }
     } catch {
       localStorage.removeItem(STORAGE_KEY);
